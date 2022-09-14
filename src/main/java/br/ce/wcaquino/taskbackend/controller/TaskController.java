@@ -1,6 +1,7 @@
 package br.ce.wcaquino.taskbackend.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class TaskController {
 	
 	@PostMapping
 	public ResponseEntity<Task> save(@RequestBody Task todo) throws ValidationException {
-		if(todo.getTask() == null || todo.getTask() == "") {
+		if(todo.getTask() == null || Objects.equals(todo.getTask(), "")) {
 			throw new ValidationException("Fill the task description");
 		}
 		if(todo.getDueDate() == null) {
