@@ -47,7 +47,7 @@ pipeline {
                 dir('frontend'){
                     git 'https://github.com/LeonardoPhildeg/tasks-frontend'
                     sh 'mvn clean package'
-                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8002/')], contextPath: 'tasks-frontend', war: 'target/tasks-frontend.war'
+                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8002/')], contextPath: 'tasks-frontend', war: 'target/tasks.war'
                 }
             }
         }
