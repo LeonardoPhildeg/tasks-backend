@@ -6,5 +6,10 @@ pipeline {
                 sh 'mvn clean package -DskipTests=true'
             }
         }
+        stage ('Backend unit tests'){
+            steps {
+                sh 'mvn test'
+            }
+        }
     }
 }
