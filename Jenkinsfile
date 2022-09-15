@@ -21,6 +21,30 @@ pipeline {
                 }
             }
         }
+        stage ('Quality gate'){
+            steps {
+                sleep(5)
+                timeout(time: 30, unit: 'SECONDS') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        stage ('DeployBackEnd') {
+            steps {
+                step {
+                    deploy adapters: [tomcat8(credentialsId: 'TomcatLogin', path: '', url: 'http://localhost:8002/')], contextPath: 'tasks-backend', war: 'target/tasks-backend.war'
+                }
+            }
+        }
+        stage ('API test') {
+            steps {
+                step {
+                    dir('api-test'){
+                        git 'https://github.com/LeonardoPhildeg/tasks-api-test'
+                        sh 'mvn test'
+                    }
+                }
+            }
+        }
     }
 }
-
